@@ -3,9 +3,6 @@ import {useState} from 'react';
 import styled from "styled-components";
 import Axios from 'axios';
 
-// id="userName" placeholder="User Name" autocomplete="off"
-// id="password" placeholder="Password" autocomplete="off"
-
 function LogIn() {
     const [username,setUserName]=useState("");
     const [password,setPassword]=useState("");
@@ -29,77 +26,81 @@ function LogIn() {
     };
 
   return (
-    <ContainerStyle>
-        <h3>Log In</h3>
-        <InputStyle type="text"
-        onChange={(e)=>
-            {setUserName(e.target.value);
-        }}
-        />
-        <InputStyle type="text" 
-        onChange={(e)=>
-            {setPassword(e.target.value);
-        }}
-        />
-        <ButtonStyle onClick={login}>Log In</ButtonStyle>
-        <h1>{loginStatus}</h1>
+    <Loginpage>
+      <ContainerStyle>
+          <h3>Login</h3>
+          <InputStyle type="text"  placeholder="UserName"
+          onChange={(e)=>
+              {setUserName(e.target.value);
+          }}
+          />
+          <InputStyle type="text" placeholder="Password"
+          onChange={(e)=>
+              {setPassword(e.target.value);
+          }}
+          />
+          <ButtonStyle onClick={login}>Log In</ButtonStyle>
+          <h1>{loginStatus}</h1>
       </ContainerStyle> 
+    </Loginpage>
   )
 }
+
+const Loginpage=styled.div`
+    background: #fafafa;
+    height: 100vh;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    font-family: 'Assistant', sans-serif;
+    color: #1d3557;
+
+`;
 const ContainerStyle = styled.div`
-  background: #f8f0e8a6;;
-  margin: auto;
-  width: fit-content;
-  padding: 40px 60px;
-  border-radius: 15px;
-  flex-direction: column;
-  display: flex;
-  color:var(--color-iconCard-purple);
-  margin:auto ;
-  align-items: center;
-  h1{
-    font-size:2.5rem;
-    padding-top:3px;
-    color: var(--color-primary-purple);
-  }
-  span {
-    color: #f3af6b;
-  }
-  h3{
-    margin-bottom: 0.7rem;
-  }
-  
+   background: #fafafa;
+   border: 2px solid gray;
+   border-radius: 15px;
+   text-align: center;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   display: flex;
+   justify-content: center;
+   padding: 200px;
+   height: 200px;
+   width: 20%;
+   
 `;
 const InputStyle = styled.input`
-  margin: 0.7rem;
-  background: #bf6b18a6;;
-  border: none;
-  border-radius:5px ;
-  border-bottom: 1px solid;
-  border-bottom-color: #bf6b18a6;;
-  font-size: 18px;
+  outline:none;
+  border:none;
+  background: #FAFAFA;
+  border-bottom: 0.5px solid #BFC0C0 ;
   padding: 0.5rem;
-  width:18rem ;
+  margin: 1rem;
+  margin-top: 1rem;
+  font-size: 16px;
+  font-family: 'Assistant', sans-serif;
 `;
 
 const ButtonStyle = styled.button`
-  padding: 0.5rem 2rem ;
-  font-size: 16px;
-  font-weight:bolder ;
+  width: 70px;
+  height: 30px;
+  border: none;
+  background: #1d3557;
+  color: white;
   cursor: pointer;
-  transition: 0.5s all ease;
-  border-radius: 10px;
-  border: 1px solid;
-  background: #bf6b18a6; ;
-  color:#f8f0e8a6 ;
-  border: 1px solid #f8f0e8a6 ;
-  margin-top:1rem ;
-
+  font-size: 16px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  font-family: 'Assistant', sans-serif;
+  margin-top: 2rem ;
+  
   :hover {
-    background: #f8f0e8a6;
-    color:var(--color-primary-purple) ;
-    border: 1px solid var(--color-primary-purple) ;
-    transform: scale(1.02) ;
-  }
+    background: white;
+    color: #1d3557;
+    border: 2px solid #1d3557;
+  } 
+  
 `
 export default LogIn

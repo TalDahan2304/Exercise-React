@@ -7,65 +7,121 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+import Axios from 'axios';
+import {useEffect} from 'react';
+import {useState} from 'react';
+import { Link } from 'react-router-dom';
 
 function UsersData() {
+  const [checked, setChecked] = React.useState(true);
+  const [userslist, setuserslist ]=useState([]);
+
+
+  function selectShortlistedApplicant(colname,userid,e){
+    const checked = e.target.checked;
+    if (checked) {
+      Axios.post("http://localhost:3000/setPermissions",{
+        colname:colname,
+        userid:userid,
+        value:1,
+    }).then((response)=>{
+        console.log(response)
+    });
+      
+    }
+    else{
+      Axios.post("http://localhost:3000/setPermissions",{
+        colname:colname,
+        userid:userid,
+        value:0,
+    }).then((response)=>{
+        console.log(response)
+    });
+    }
+  };
+
+  useEffect(()=>{
+   Axios.get("http://localhost:3000/users").then( (response)=>{
+      setuserslist(response.data);
+    });
+  },[]);
+
 
   return (
     <UsersDataStyled>
-      <h1>Users</h1>
-
+      <h1>Users' management page</h1>
       <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell>id</TableCell>
+            <TableCell align="center">username</TableCell>
+            <TableCell align="center">password</TableCell>
+            <TableCell align="center">phone</TableCell>
+            <TableCell align="center">todolist</TableCell>
+            <TableCell align="center">savecontacts</TableCell>
+            <TableCell align="center">proscons</TableCell>
+            <TableCell align="center">View page</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+          {userslist.map((row) => (
+            <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+              <TableCell component="th" scope="row">{row.id}</TableCell>
+              <TableCell align="center">{row.username}</TableCell>
+              <TableCell align="center">{row.password}</TableCell>
+              <TableCell align="center">{row.phonenumber}</TableCell>
+              {row.todolist === 0 &&
+                <TableCell align="center"><input type="checkbox" onClick={(e) => {
+                  selectShortlistedApplicant("todolist",row.id,e);
+              }}/></TableCell>
+              }
+              {row.todolist === 1 &&
+                <TableCell align="center"><input type="checkbox" defaultChecked={checked} onClick={(e) => {
+                  selectShortlistedApplicant("todolist",row.id,e);
+              }}/></TableCell>
+              }
+              {row.savecontacts === 0 &&
+                <TableCell align="center"><input type="checkbox" onClick={(e) => {
+                  selectShortlistedApplicant("savecontacts",row.id,e);
+              }}/></TableCell>
+              }
+              {row.savecontacts === 1 &&
+                <TableCell align="center"><input type="checkbox" defaultChecked={checked} onClick={(e) => {
+                  selectShortlistedApplicant("savecontacts",row.id,e);
+              }}/></TableCell>
+              }
+              {row.proscons === 0 &&
+                <TableCell align="center"><input type="checkbox" onClick={(e) => {
+                  selectShortlistedApplicant("proscons",row.id,e);
+              }}/></TableCell>
+              }
+              {row.proscons === 1 &&
+                <TableCell align="center"><input type="checkbox"   defaultChecked={checked}  onClick={(e) => {
+                  selectShortlistedApplicant("proscons",row.id,e);
+              }}/></TableCell>
+              }
+              <TableCell align="center"><Link to={`/userpage/${row.id}`} className="link">View </Link></TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
-
-
+      </TableContainer>
     </UsersDataStyled>
   );
 }
 
+
 const UsersDataStyled=styled.div`
-  background: #f3af6b;
-  width: 70%;
-  margin: auto;
-  /* align-items: center; */
+  color: #1d3557;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Assistant', sans-serif;
+
 `;
+
+
 export default UsersData;
