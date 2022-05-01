@@ -48,18 +48,19 @@ function SaveContacts() {
       <br></br>
       <h1>Save Contacts</h1>
       <br></br>
-        <input type="text" placeholder="Name"
+      <Contacts>
+        <input className="name" type="text" placeholder="Name"
         onChange={(e)=>
             {setName(e.target.value);
         }}
         />
-        <input type="text" placeholder="Number"
+        <input className="number" type="text" placeholder="Number"
         onChange={(e)=>
             {setNumber(e.target.value);
         }}
         />
-        <button onClick={addContact}>Add Contact</button>
-
+        <button className="addContact" onClick={addContact}>Add Contact</button>
+        </Contacts>
         <ContactsDataStyled>
         <br></br>
           <TableContainer component={Paper}>
@@ -92,5 +93,37 @@ function SaveContacts() {
 
 const ContactsDataStyled=styled.div`
   
+`;
+const Contacts=styled.div`
+  .name, .number{
+  outline:none;
+  background: #FAFAFA;
+  border: 0.5px solid #BFC0C0 ;
+  border-radius: 10px;
+  padding: 0.5rem;
+  margin: 1rem;
+  margin-top: 1rem;
+  font-size: 16px;
+  font-family: 'Assistant', sans-serif;
+  }
+  .addContact{
+  width: 90px;
+  height: 30px;
+  border: none;
+  background: #1d3557;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-family: 'Assistant', sans-serif;
+  margin-top: 2rem ;
+  
+  :hover {
+    background: white;
+    color: #1d3557;
+    border: 2px solid #1d3557;
+  } 
+  }
 `;
 export default SaveContacts

@@ -50,6 +50,8 @@ function UsersData() {
   return (
     <UsersDataStyled>
       <h1>Users' management page</h1>
+      <br></br>
+      <br></br>
       <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>

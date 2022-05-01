@@ -47,6 +47,11 @@ function Todolist() {
     }).then((response)=>{
       console.log(response);
     });
+
+    settaskslist([
+      ...taskslist,
+      {task:task, id: idData},
+    ]);
   };
 
   useEffect(()=>{
@@ -60,14 +65,16 @@ function Todolist() {
   }
   return (
     <div>
+      <NewTask>
       <h1>To Do List</h1>
       <br></br>
-        <input type="text" placeholder="New Task"
+        <input className="newTask" type="text" placeholder="New Task"
         onChange={(e)=>
             {setTask(e.target.value);
         }}
         />
-        <button onClick={addTask}>Add Task</button>
+        <button  className="addnewTask" onClick={addTask}>Add Task</button>
+        </NewTask>
         <TasksDataStyled>
         <br></br>
           <TableContainer component={Paper}>
@@ -108,4 +115,38 @@ function Todolist() {
 const TasksDataStyled=styled.div`
   
 `;
+const NewTask=styled.div`
+  .newTask{
+  outline:none;
+  background: #FAFAFA;
+  border: 0.5px solid #BFC0C0 ;
+  border-radius: 10px;
+  padding: 0.5rem;
+  margin: 1rem;
+  margin-top: 1rem;
+  font-size: 16px;
+  font-family: 'Assistant', sans-serif;
+  }
+  .addnewTask{
+  width: 70px;
+  height: 30px;
+  border: none;
+  background: #1d3557;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-family: 'Assistant', sans-serif;
+  margin-top: 2rem ;
+  
+  :hover {
+    background: white;
+    color: #1d3557;
+    border: 2px solid #1d3557;
+  } 
+  }
+
+`;
+
 export default Todolist

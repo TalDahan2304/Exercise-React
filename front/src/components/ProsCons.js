@@ -44,18 +44,19 @@ function ProsCons() {
       <br></br>
       <h1>ProsCons</h1>
       <br></br>
-        <input type="text" placeholder="Pros"
+      <Proscons>
+        <input className="Pros" type="text" placeholder="Pros"
         onChange={(e)=>
             {setPros(e.target.value);
         }}
         />
-        <input type="text" placeholder="Cons"
+        <input className="Cons" type="text" placeholder="Cons"
         onChange={(e)=>
             {setCons(e.target.value);
         }}
         />
-        <button onClick={add}>Add</button>
-        
+        <button className="add" onClick={add}>Add</button>
+      </Proscons>
     <ProsConsDataStyled>
           <br></br>
           <TableContainer component={Paper}>
@@ -86,8 +87,40 @@ function ProsCons() {
   )
 }
 
-
 const ProsConsDataStyled=styled.div`
   
 `;
+const Proscons=styled.div`
+  .Pros, .Cons{
+  outline:none;
+  background: #FAFAFA;
+  border: 0.5px solid #BFC0C0 ;
+  border-radius: 10px;
+  padding: 0.5rem;
+  margin: 1rem;
+  margin-top: 1rem;
+  font-size: 16px;
+  font-family: 'Assistant', sans-serif;
+  }
+  .add{
+  width: 70px;
+  height: 30px;
+  border: none;
+  background: #1d3557;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-family: 'Assistant', sans-serif;
+  margin-top: 2rem ;
+  
+  :hover {
+    background: white;
+    color: #1d3557;
+    border: 2px solid #1d3557;
+  } 
+  }
+`;
+
 export default ProsCons
